@@ -3,32 +3,15 @@ import React, { useEffect, useState } from 'react';
 import { Alert, Text } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import Button from '../../../../components/Button';
-import Input from '../../../../components/Input';
+import { AgendamentosResponse } from '../../../../interfaces/AgendamentosResponse';
 import { ResponseError } from '../../../../interfaces/ResponseError';
 import api from '../../../../services/api';
+import {
+    Container,
+    ContainerInfo,
+    Label
+} from './styles';
 
-
-import { Container, ContainerInfo, Label } from './styles';
-
-interface AgendamentosResponse {
-    id: string;
-    dataAgendamento: string;
-
-    livro: {
-        id: string;
-        ano: string;
-        descricao: string;
-        autor: string;
-        titulo: string;
-    }
-    cliente: {
-        id: string;
-        nome: string;
-        email: string;
-        endereco: string;
-        telefone: string;
-    }
-}
 const DetalheCliente: React.FC = () => {
     const route = useRoute();
     const agendamento = route.params as AgendamentosResponse;
@@ -37,7 +20,7 @@ const DetalheCliente: React.FC = () => {
 
     useEffect(() => {
         api.get(`/agendamentos/${agendamento.id}`).then((response) => {
-             setAgendamentosResponse(response.data);
+            setAgendamentosResponse(response.data);
         }).catch((error: ResponseError) => {
             Alert.alert(error.response.data.message);
         })

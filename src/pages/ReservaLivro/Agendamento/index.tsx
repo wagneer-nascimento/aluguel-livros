@@ -1,29 +1,14 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { View, FlatList, Text, Alert } from 'react-native';
+import { FlatList, Text, Alert } from 'react-native';
 import Button from '../../../components/Button';
+import { AgendamentosResponse } from '../../../interfaces/AgendamentosResponse';
 import { ResponseError } from '../../../interfaces/ResponseError';
 import api from '../../../services/api';
-import { Container, ContainerLista } from './styles';
-
-interface AgendamentosResponse {
-    id: string;
-    dataAgendamento: string;
-
-    livro: {
-        ano: string;
-        descricao: string;
-        autor: string;
-        titulo: string;
-    }
-    cliente: {
-        id: string;
-        nome: string;
-        email: string;
-        endereco: string;
-        telefone: string;
-    }
-}
+import {
+    Container,
+    ContainerLista
+} from './styles';
 
 export const DetalheAgendamento: React.FC = () => {
     const navegation = useNavigation();

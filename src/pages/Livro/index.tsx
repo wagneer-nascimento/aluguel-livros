@@ -1,17 +1,13 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { View, FlatList, Text } from 'react-native';
+import { FlatList, Text } from 'react-native';
 import Button from '../../components/Button';
+import { LivroResponse } from '../../interfaces/LivroResponse';
 import api from '../../services/api';
-import { Container, ContainerLista } from './styles';
-
-interface LivroResponse {
-    id: string;
-    titulo: string;
-    descricao: string;
-    autor: string;
-    ano: string;
-}
+import {
+    Container,
+    ContainerLista
+} from './styles';
 
 export const ListaLivro: React.FC = () => {
     const route = useRoute();

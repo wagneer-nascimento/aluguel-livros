@@ -9,27 +9,25 @@ export const Home: React.FC = () => {
     const navegacao = useNavigation();
     return (
         <Container>
-            <ScrollView showsVerticalScrollIndicator={false}>
-                <FlexDiretion>
-                    <ContainerInfo onPress={() => { navegacao.navigate('Cliente') }}>
-                        <Label>Clientes</Label>
-                    </ContainerInfo>
+            <FlexDiretion>
+                <ContainerInfo onPress={() => { navegacao.navigate('Cliente') }}>
+                    <Label>Clientes</Label>
+                </ContainerInfo>
 
-                    <ContainerInfo onPress={() => { navegacao.navigate('Livro') }}>
-                        <Label>Livros</Label>
-                    </ContainerInfo>
-                </FlexDiretion>
+                <ContainerInfo onPress={() => { navegacao.navigate('Livro') }}>
+                    <Label>Livros</Label>
+                </ContainerInfo>
+            </FlexDiretion>
 
-                <FlexDiretion>
-                    <ContainerInfo onPress={() => { navegacao.navigate('ListaAgendamento') }}>
-                        <Label>Agendamentos</Label>
-                    </ContainerInfo>
+            <FlexDiretion>
+                <ContainerInfo onPress={() => { navegacao.navigate('ListaAgendamento') }}>
+                    <Label>Agendamentos</Label>
+                </ContainerInfo>
 
-                    <ContainerInfo onPress={() => { navegacao.navigate('Aluguel') }}>
-                        <Label>Aluguel</Label>
-                    </ContainerInfo>
-                </FlexDiretion>
-            </ScrollView>
+                <ContainerInfo onPress={() => { navegacao.navigate('Aluguel') }}>
+                    <Label>Aluguel</Label>
+                </ContainerInfo>
+            </FlexDiretion>
         </Container>
     );
 }

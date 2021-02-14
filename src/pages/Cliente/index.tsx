@@ -1,25 +1,21 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { View, FlatList, Text } from 'react-native';
+import { FlatList, Text } from 'react-native';
 import Button from '../../components/Button';
+import { ClienteResponse } from '../../interfaces/ClienteResponse';
 import api from '../../services/api';
-import { Container, ContainerLista } from './styles';
+import {
+    Container,
+    ContainerLista
+} from './styles';
 
-interface ClienteResponse {
-    id: string;
-    nome: string;
-    email: string;
-    telefone: string;
-    endereco: string;
-}
-
-export const ListaCliente: React.FC = () => {
+ export const ListaCliente: React.FC = () => {
     const route = useRoute();
     const cliente = route.params as ClienteResponse;
     const navegation = useNavigation();
     const [clienteResponse, setClienteResponse] = useState<ClienteResponse[]>();
 
-    useEffect(() => { 
+    useEffect(() => {
         api.get('/clientes').then((response) => {
             setClienteResponse(response.data)
         }).catch((error) => {

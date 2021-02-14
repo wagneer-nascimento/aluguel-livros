@@ -1,21 +1,15 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { ScrollView } from 'react-native';
+import { Alert, ScrollView } from 'react-native';
 import Button from '../../../components/Button';
 import Input from '../../../components/Input';
+import { LivroResponse } from '../../../interfaces/LivroResponse';
+import { ResponseError } from '../../../interfaces/ResponseError';
 import api from '../../../services/api';
 import {
     Container,
     Label
 } from './styles';
-
-interface LivroResponse {
-    id: string;
-    titulo: string;
-    descricao: string;
-    autor: string;
-    ano: string;
-}
 
 const DetalheLivro: React.FC = () => {
     const navegacao = useNavigation();
@@ -29,7 +23,6 @@ const DetalheLivro: React.FC = () => {
     const [ano, setAno] = useState<string>('');
 
     useEffect(() => {
-        console.log(livro)
         preencherInputTextComOsValoresDoParametro();
 
     }, []);
@@ -53,16 +46,16 @@ const DetalheLivro: React.FC = () => {
 
         api.put('/livros', data).then((response) => {
             navegacao.navigate('Livro', response);
-        }).catch((error) => {
-            console.log(error)
+        }).catch((error: ResponseError) => {
+            Alert.alert(error.response.data.message)
         })
     }
 
     function removerLivro() {
         api.delete(`/livros/${id}`).then((response) => {
             navegacao.navigate('Livro', response);
-        }).catch((error) => {
-            console.log(error)
+        }).catch((error: ResponseError) => {
+            Alert.alert(error.response.data.message)
         })
     }
 

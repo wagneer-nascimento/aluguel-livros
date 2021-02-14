@@ -1,20 +1,16 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { Alert, Text } from 'react-native';
+import { Alert } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import Button from '../../../components/Button';
 import Input from '../../../components/Input';
 import api from '../../../services/api';
-
-import { Container, Label } from './styles';
-
-interface ClienteResponse {
-    id: string;
-    nome: string;
-    email: string;
-    telefone: string;
-    endereco: string;
-}
+import { ClienteResponse } from '../../../interfaces/ClienteResponse';
+import { ResponseError } from '../../../interfaces/ResponseError';
+import {
+    Container,
+    Label
+} from './styles';
 
 const DetalheCliente: React.FC = () => {
     const navegacao = useNavigation();
@@ -33,7 +29,7 @@ const DetalheCliente: React.FC = () => {
     }, []);
 
     function preencherInputTextComOsValoresDoParametro() {
-        setID(cliente.id);
+        setID(cliente.id ? cliente.id : '');
         setNome(cliente.nome);
         setEmail(cliente.email);
         setTelefone(cliente.telefone);
@@ -56,17 +52,17 @@ const DetalheCliente: React.FC = () => {
 
         api.put('/clientes', data).then((response) => {
             navegacao.navigate('Cliente', response);
-        }).catch((error) => {
-            Alert.alert('Error ao editar cliente', error);
-        })
+        }).catch((error: ResponseError) => {
+            Alert.alert(error.response.data.message);
+        });
     }
 
     function removerCliente() {
         api.delete(`/clientes/${id}`).then((response) => {
             navegacao.navigate('Cliente', response);
-        }).catch((error) => {
-            Alert.alert('Error ao remover cliente', error);
-        })
+        }).catch((error: ResponseError) => {
+            Alert.alert(error.response.data.message);
+        });
     }
 
 

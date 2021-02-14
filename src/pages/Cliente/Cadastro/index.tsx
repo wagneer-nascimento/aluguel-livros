@@ -1,21 +1,18 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { Alert, Text } from 'react-native';
+import { Alert } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import Button from '../../../components/Button';
 import Input from '../../../components/Input';
+import { ClienteResponse } from '../../../interfaces/ClienteResponse';
+import { ResponseError } from '../../../interfaces/ResponseError';
 import api from '../../../services/api';
-import { Container, Label } from './styles';
-
-interface ClienteResponse {
-    nome: string;
-    email: string;
-    telefone: string;
-    endereco: string;
-}
+import {
+    Container,
+    Label
+} from './styles';
 
 const CadastroCliente: React.FC = () => {
-
     const navegacao = useNavigation();
     const [nome, setNome] = useState<string>('');
     const [email, setEmail] = useState<string>('');
@@ -23,12 +20,12 @@ const CadastroCliente: React.FC = () => {
     const [endereco, setEndereco] = useState<string>('');
 
     function cadastro() {
-
         if (!nome || !email || !telefone || !endereco) {
             return Alert.alert('Todos os dados são obrigátorios');
         }
 
         const data: ClienteResponse = {
+            id: '',
             nome: nome,
             email: email,
             telefone: telefone,
@@ -37,8 +34,8 @@ const CadastroCliente: React.FC = () => {
 
         api.post('/clientes', data).then((response) => {
             navegacao.navigate('Cliente', response);
-        }).catch((error) => {
-            Alert.alert('Erro ao inserir cliente');
+        }).catch((error: ResponseError) => {
+            Alert.alert(error.response.data.message);
         });
     }
 

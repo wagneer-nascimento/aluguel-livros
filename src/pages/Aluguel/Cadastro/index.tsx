@@ -1,21 +1,16 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { Alert, Text } from 'react-native';
+import { Alert } from 'react-native';
 import Button from '../../../components/Button';
 import Input from '../../../components/Input';
 import api from '../../../services/api';
 import { ResponseError } from '../../../interfaces/ResponseError';
-import { Container, Label } from './styles';
 import { ScrollView } from 'react-native-gesture-handler';
-
-
-interface AluguelResponse {
-    idCliente: string;
-    idLivro: string;
-    valor: string;
-    dataAluguel: string;
-    dataDevolucao: string;
-}
+import { AluguelCadastro } from '../../../interfaces/AluguelResponse';
+import {
+    Container,
+    Label
+} from './styles';
 
 const CadastroAluguel: React.FC = () => {
     const navegacao = useNavigation();
@@ -26,7 +21,7 @@ const CadastroAluguel: React.FC = () => {
     const [dataDevolucao, setDataDevolucao] = useState<string>('');
 
     function cadastroAluguel() {
-        const data: AluguelResponse = {
+        const data: AluguelCadastro = {
             idCliente: idCliente,
             idLivro: idLivro,
             valor: valor,
@@ -81,7 +76,5 @@ const CadastroAluguel: React.FC = () => {
         </Container>
     )
 }
-
-
 
 export default CadastroAluguel;

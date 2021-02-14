@@ -1,18 +1,16 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { Alert } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import Button from '../../../components/Button';
 import Input from '../../../components/Input';
+import { LivroResponse } from '../../../interfaces/LivroResponse';
+import { ResponseError } from '../../../interfaces/ResponseError';
 import api from '../../../services/api';
-import { Container, Label } from './styles';
-
-interface LivroResponse {
-    titulo: string;
-    descricao: string;
-    autor: string;
-    ano: string;
-}
+import {
+    Container,
+    Label
+} from './styles';
 
 const LivroCadastro: React.FC = () => {
     const navegacao = useNavigation();
@@ -23,6 +21,7 @@ const LivroCadastro: React.FC = () => {
 
     function cadastro() {
         const data: LivroResponse = {
+            id: '',
             titulo: titulo,
             descricao: descricao,
             autor: autor,
@@ -30,11 +29,10 @@ const LivroCadastro: React.FC = () => {
         }
 
         api.post('/livros', data).then((response) => {
-            console.log(response)
             navegacao.navigate('Livro', response);
-        }).catch((error) => {
-            console.log(error)
-        })
+        }).catch((error: ResponseError) => {
+            Alert.alert(error.response.data.message);
+        });
     }
 
     return (
