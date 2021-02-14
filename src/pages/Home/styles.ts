@@ -21,3 +21,6 @@ export const FlexDiretion = styled.View`
     flex-direction: row;
     
 `;
+export const Label = styled.Text`
+    font-size: 18px;
+`;

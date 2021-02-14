@@ -36,10 +36,9 @@ const Aluguel: React.FC = () => {
     useEffect(() => {
 
         api.get('/aluguel').then((response) => {
-            setAluguelResponse(response.data)
-            console.log(response.data)
+            setAluguelResponse(response.data) 
         }).catch((error) => {
-            console.log(error)
+            console.log(error.message)
         })
 
     }, [aluguel])

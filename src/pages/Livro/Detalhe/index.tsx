@@ -1,11 +1,13 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { Text } from 'react-native';
+import { ScrollView } from 'react-native';
 import Button from '../../../components/Button';
 import Input from '../../../components/Input';
 import api from '../../../services/api';
-
-import { Container } from './styles';
+import {
+    Container,
+    Label
+} from './styles';
 
 interface LivroResponse {
     id: string;
@@ -64,55 +66,56 @@ const DetalheLivro: React.FC = () => {
         })
     }
 
-
     return (
         <Container>
+            <ScrollView showsVerticalScrollIndicator={false}>
 
-            <Text>Título</Text>
-            <Input
-                value={titulo}
-                onChangeText={setTitulo}
-                name="titulo"
-                editable={editavel} />
+                <Label>Título</Label>
+                <Input
+                    value={titulo}
+                    onChangeText={setTitulo}
+                    name="titulo"
+                    editable={editavel} />
 
-            <Text>Autor</Text>
-            <Input
-                value={autor}
-                onChangeText={setAutor}
-                name="autor"
-                editable={editavel} />
+                <Label>Autor</Label>
+                <Input
+                    value={autor}
+                    onChangeText={setAutor}
+                    name="autor"
+                    editable={editavel} />
 
-            <Text>Ano de lançamento</Text>
-            <Input
-                value={ano}
-                onChangeText={setAno}
-                name="ano"
-                editable={editavel} />
+                <Label>Ano de lançamento</Label>
+                <Input
+                    value={ano}
+                    onChangeText={setAno}
+                    name="ano"
+                    editable={editavel} />
 
-            <Text>Descrição</Text>
-            <Input
-                value={descricao}
-                onChangeText={setDescricao}
-                height={100}
-                multiline
-                name="descricao"
-                editable={editavel} />
+                <Label>Descrição</Label>
+                <Input
+                    value={descricao}
+                    onChangeText={setDescricao}
+                    height={100}
+                    multiline
+                    name="descricao"
+                    editable={editavel} />
 
 
 
-            <Button
-                onPress={() => { setEditavel(!editavel) }}
-            >Editar</Button>
-            {
-                editavel ?
-                    <Button
-                        onPress={() => { editarLivro() }}
-                    >Salvar</Button>
-                    :
-                    <Button
-                        onPress={() => { removerLivro() }}
-                    >Remover</Button>
-            }
+                <Button
+                    onPress={() => { setEditavel(!editavel) }}
+                >Editar</Button>
+                {
+                    editavel ?
+                        <Button
+                            onPress={() => { editarLivro() }}
+                        >Salvar</Button>
+                        :
+                        <Button
+                            onPress={() => { removerLivro() }}
+                        >Remover</Button>
+                }
+            </ScrollView>
         </Container>
     )
 }

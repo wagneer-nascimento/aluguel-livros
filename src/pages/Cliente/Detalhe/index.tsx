@@ -1,11 +1,12 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { Text } from 'react-native';
+import { Alert, Text } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import Button from '../../../components/Button';
 import Input from '../../../components/Input';
 import api from '../../../services/api';
 
-import { Container } from './styles';
+import { Container, Label } from './styles';
 
 interface ClienteResponse {
     id: string;
@@ -40,6 +41,11 @@ const DetalheCliente: React.FC = () => {
     }
 
     function editarCliente() {
+
+        if (!id || !nome || !email || !telefone || !endereco) {
+            return Alert.alert('Todos os dados são obrigátorios');
+        }
+
         const data: ClienteResponse = {
             id: id,
             nome: nome,
@@ -48,65 +54,68 @@ const DetalheCliente: React.FC = () => {
             endereco: endereco,
         }
 
-        api.put('/clientes', data).then((response) => { 
+        api.put('/clientes', data).then((response) => {
             navegacao.navigate('Cliente', response);
         }).catch((error) => {
-            console.log(error)
+            Alert.alert('Error ao editar cliente', error);
         })
     }
 
     function removerCliente() {
-        api.delete(`/clientes/${id}`).then((response) => { 
+        api.delete(`/clientes/${id}`).then((response) => {
             navegacao.navigate('Cliente', response);
         }).catch((error) => {
-            console.log(error)
+            Alert.alert('Error ao remover cliente', error);
         })
     }
 
 
     return (
         <Container>
+            <ScrollView
+                showsVerticalScrollIndicator={false}
+            >
+                <Label>Nome</Label>
+                <Input
+                    value={nome}
+                    onChangeText={setNome}
+                    name="nome"
+                    editable={editavel} />
 
-            <Text>Nome</Text>
-            <Input
-                value={nome}
-                onChangeText={setNome}
-                name="nome"
-                editable={editavel} />
+                <Label>Email</Label>
+                <Input
+                    value={email}
+                    onChangeText={setEmail}
+                    name="email"
+                    editable={editavel} />
 
-            <Text>Email</Text>
-            <Input
-                value={email}
-                onChangeText={setEmail}
-                name="email"
-                editable={editavel} />
+                <Label>Telefone</Label>
+                <Input
+                    value={telefone}
+                    onChangeText={setTelefone}
+                    name="telefone"
+                    editable={editavel} />
+                <Label>Endereço</Label>
+                <Input
+                    value={endereco}
+                    onChangeText={setEndereco}
+                    name="endereco"
+                    editable={editavel} />
 
-            <Text>Telefone</Text>
-            <Input
-                value={telefone}
-                onChangeText={setTelefone}
-                name="telefone"
-                editable={editavel} />
-            <Text>Endereço</Text>
-            <Input
-                value={endereco}
-                onChangeText={setEndereco}
-                name="endereco"
-                editable={editavel} />
-
-            <Button
-                onPress={() => { setEditavel(!editavel) }}
-            >Editar</Button>
-            {
-                editavel ?
-                    <Button
-                        onPress={() => { editarCliente() }}
-                    >Salvar</Button>
-                    :
-                    <Button
-                        onPress={() => { removerCliente() }}
-                    >Remover</Button>
-            }
+                <Button
+                    onPress={() => { setEditavel(!editavel) }}
+                >Editar</Button>
+                {
+                    editavel ?
+                        <Button
+                            onPress={() => { editarCliente() }}
+                        >Salvar</Button>
+                        :
+                        <Button
+                            onPress={() => { removerCliente() }}
+                        >Remover</Button>
+                }
+            </ScrollView>
         </Container>
     )
 }

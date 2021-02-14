@@ -1,33 +1,35 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { Text, View } from 'react-native';
-import { Container, ContainerInfo, FlexDiretion } from './styles';
+import { ScrollView } from 'react-native-gesture-handler';
+import { Container, ContainerInfo, FlexDiretion, Label } from './styles';
 
 
 export const Home: React.FC = () => {
     const navegacao = useNavigation();
     return (
         <Container>
-            <FlexDiretion>
-                <ContainerInfo onPress={() => { navegacao.navigate('Cliente') }}>
-                    <Text>Clientes</Text>
-                </ContainerInfo>
+            <ScrollView showsVerticalScrollIndicator={false}>
+                <FlexDiretion>
+                    <ContainerInfo onPress={() => { navegacao.navigate('Cliente') }}>
+                        <Label>Clientes</Label>
+                    </ContainerInfo>
 
-                <ContainerInfo onPress={() => { navegacao.navigate('Livro') }}>
-                    <Text>Livros</Text>
-                </ContainerInfo>
-            </FlexDiretion>
+                    <ContainerInfo onPress={() => { navegacao.navigate('Livro') }}>
+                        <Label>Livros</Label>
+                    </ContainerInfo>
+                </FlexDiretion>
 
-            <FlexDiretion>
-                <ContainerInfo onPress={() => { navegacao.navigate('ListaAgendamento') }}>
-                    <Text>Agendamentos</Text>
-                </ContainerInfo>
+                <FlexDiretion>
+                    <ContainerInfo onPress={() => { navegacao.navigate('ListaAgendamento') }}>
+                        <Label>Agendamentos</Label>
+                    </ContainerInfo>
 
-                <ContainerInfo onPress={() => {navegacao.navigate('Aluguel')}}>
-                <Text>Aluguel</Text>
-                </ContainerInfo>
-            </FlexDiretion>
-
+                    <ContainerInfo onPress={() => { navegacao.navigate('Aluguel') }}>
+                        <Label>Aluguel</Label>
+                    </ContainerInfo>
+                </FlexDiretion>
+            </ScrollView>
         </Container>
     );
 }

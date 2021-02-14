@@ -1,10 +1,11 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import Button from '../../../components/Button';
 import Input from '../../../components/Input';
 import api from '../../../services/api';
-import { Container } from './styles';
+import { Container, Label } from './styles';
 
 interface LivroResponse {
     titulo: string;
@@ -38,35 +39,37 @@ const LivroCadastro: React.FC = () => {
 
     return (
         <Container>
-            <Text>Título</Text>
-            <Input
-                value={titulo}
-                onChangeText={setTitulo}
-                name="titulo" />
+            <ScrollView showsVerticalScrollIndicator={false}>
+                <Label>Título</Label>
+                <Input
+                    value={titulo}
+                    onChangeText={setTitulo}
+                    name="titulo" />
 
-            <Text>Autor</Text>
-            <Input
-                value={autor}
-                onChangeText={setAutor}
-                name="autor" />
+                <Label>Autor</Label>
+                <Input
+                    value={autor}
+                    onChangeText={setAutor}
+                    name="autor" />
 
-            <Text>Ano de lançamento</Text>
-            <Input
-                value={ano}
-                onChangeText={setAno}
-                name="ano" />
+                <Label>Ano de lançamento</Label>
+                <Input
+                    value={ano}
+                    onChangeText={setAno}
+                    name="ano" />
 
-            <Text>Descrição</Text>
-            <Input
-                value={descricao}
-                onChangeText={setDescricao}
-                height={100}
-                multiline
-                name="descricao" />
+                <Label>Descrição</Label>
+                <Input
+                    value={descricao}
+                    onChangeText={setDescricao}
+                    height={100}
+                    multiline
+                    name="descricao" />
 
-            <Button
-                onPress={() => { cadastro() }}
-            >Cadastrar</Button>
+                <Button
+                    onPress={() => { cadastro() }}
+                >Cadastrar</Button>
+            </ScrollView>
         </Container>
     )
 }

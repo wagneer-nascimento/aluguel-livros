@@ -1,11 +1,12 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { Text } from 'react-native';
+import { Alert, Text } from 'react-native';
 import Button from '../../../components/Button';
 import Input from '../../../components/Input';
 import api from '../../../services/api';
-
-import { Container } from './styles';
+import { ResponseError } from '../../../interfaces/ResponseError';
+import { Container, Label } from './styles';
+import { ScrollView } from 'react-native-gesture-handler';
 
 
 interface AluguelResponse {
@@ -15,7 +16,6 @@ interface AluguelResponse {
     dataAluguel: string;
     dataDevolucao: string;
 }
-
 
 const CadastroAluguel: React.FC = () => {
     const navegacao = useNavigation();
@@ -33,50 +33,51 @@ const CadastroAluguel: React.FC = () => {
             dataAluguel: dataAluguel,
             dataDevolucao: dataDevolucao,
         }
-        console.log(data)
 
         api.post('/aluguel', data).then((response) => {
             navegacao.navigate('Aluguel', response);
-        }).catch((error) => {
-            console.log(error)
-        })
+        }).catch((error: ResponseError) => {
+            Alert.alert(error.response.data.message);
+        });
     }
 
     return (
         <Container>
-            <Text>Id Cliente</Text>
-            <Input
-                value={idCliente}
-                onChangeText={setIdCliente}
-                name="idCliente" />
+            <ScrollView showsVerticalScrollIndicator={false}>
+                <Label>Id Cliente</Label>
+                <Input
+                    value={idCliente}
+                    onChangeText={setIdCliente}
+                    name="idCliente" />
 
-            <Text>Id Livro</Text>
-            <Input
-                value={idLivro}
-                onChangeText={setIdLivro}
-                name="idLivro" />
+                <Label>Id Livro</Label>
+                <Input
+                    value={idLivro}
+                    onChangeText={setIdLivro}
+                    name="idLivro" />
 
-            <Text>Valor</Text>
-            <Input
-                value={valor}
-                onChangeText={setValor}
-                name="valor" />
+                <Label>Valor</Label>
+                <Input
+                    value={valor}
+                    onChangeText={setValor}
+                    name="valor" />
 
-            <Text>Data Aluguel</Text>
-            <Input
-                value={dataAluguel}
-                onChangeText={setDataAluguel}
-                name="dataAaluguel" />
+                <Label>Data Aluguel</Label>
+                <Input
+                    value={dataAluguel}
+                    onChangeText={setDataAluguel}
+                    name="dataAaluguel" />
 
-            <Text>Data Devolução</Text>
-            <Input
-                value={dataDevolucao}
-                onChangeText={setDataDevolucao}
-                name="dataDevolucao" />
+                <Label>Data Devolução</Label>
+                <Input
+                    value={dataDevolucao}
+                    onChangeText={setDataDevolucao}
+                    name="dataDevolucao" />
 
-            <Button
-                onPress={() => { cadastroAluguel() }}
-            >Agendar</Button>
+                <Button
+                    onPress={() => { cadastroAluguel() }}
+                >Agendar</Button>
+            </ScrollView>
         </Container>
     )
 }

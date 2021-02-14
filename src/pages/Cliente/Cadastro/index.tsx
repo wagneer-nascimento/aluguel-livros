@@ -1,10 +1,11 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { Text } from 'react-native';
+import { Alert, Text } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import Button from '../../../components/Button';
 import Input from '../../../components/Input';
 import api from '../../../services/api';
-import { Container } from './styles';
+import { Container, Label } from './styles';
 
 interface ClienteResponse {
     nome: string;
@@ -22,6 +23,11 @@ const CadastroCliente: React.FC = () => {
     const [endereco, setEndereco] = useState<string>('');
 
     function cadastro() {
+
+        if (!nome || !email || !telefone || !endereco) {
+            return Alert.alert('Todos os dados são obrigátorios');
+        }
+
         const data: ClienteResponse = {
             nome: nome,
             email: email,
@@ -30,42 +36,45 @@ const CadastroCliente: React.FC = () => {
         }
 
         api.post('/clientes', data).then((response) => {
-            console.log(response)
             navegacao.navigate('Cliente', response);
         }).catch((error) => {
-            console.log(error)
-        })
+            Alert.alert('Erro ao inserir cliente');
+        });
     }
 
     return (
         <Container>
-            <Text>Nome</Text>
-            <Input
-                value={nome}
-                onChangeText={setNome}
-                name="nome" />
+            <ScrollView
+                showsVerticalScrollIndicator={false}
+            >
+                <Label>Nome</Label>
+                <Input
+                    value={nome}
+                    onChangeText={setNome}
+                    name="nome" />
 
-            <Text>Email</Text>
-            <Input
-                value={email}
-                onChangeText={setEmail}
-                name="email" />
+                <Label>Email</Label>
+                <Input
+                    value={email}
+                    onChangeText={setEmail}
+                    name="email" />
 
-            <Text>Telefone</Text>
-            <Input
-                value={telefone}
-                onChangeText={setTelefone}
-                name="telefone" />
+                <Label>Telefone</Label>
+                <Input
+                    value={telefone}
+                    onChangeText={setTelefone}
+                    name="telefone" />
 
-            <Text>Endereço</Text>
-            <Input
-                value={endereco}
-                onChangeText={setEndereco}
-                name="endereco" />
+                <Label>Endereço</Label>
+                <Input
+                    value={endereco}
+                    onChangeText={setEndereco}
+                    name="endereco" />
 
-            <Button
-                onPress={() => { cadastro() }}
-            >Cadastrar</Button>
+                <Button
+                    onPress={() => { cadastro() }}
+                >Cadastrar</Button>
+            </ScrollView>
         </Container>
     )
 }

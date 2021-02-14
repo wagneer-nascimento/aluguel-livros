@@ -15,3 +15,8 @@ export const ContainerInfo = styled.View`
     margin-bottom: 8px;
  
 `;
+
+export const Label = styled.Text`
+    font-size: 18px;
+    margin-left: 5px;
+`;

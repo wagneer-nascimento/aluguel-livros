@@ -1,17 +1,28 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { View, FlatList, Text } from 'react-native';
+import { View, FlatList, Text, Alert } from 'react-native';
 import Button from '../../../components/Button';
+import { ResponseError } from '../../../interfaces/ResponseError';
 import api from '../../../services/api';
 import { Container, ContainerLista } from './styles';
 
 interface AgendamentosResponse {
     id: string;
-    idCliente: string;
-    idLivro: string;
-    nome: string;
-    titulo: string;
     dataAgendamento: string;
+
+    livro: {
+        ano: string;
+        descricao: string;
+        autor: string;
+        titulo: string;
+    }
+    cliente: {
+        id: string;
+        nome: string;
+        email: string;
+        endereco: string;
+        telefone: string;
+    }
 }
 
 export const DetalheAgendamento: React.FC = () => {
@@ -22,25 +33,19 @@ export const DetalheAgendamento: React.FC = () => {
 
     useEffect(() => {
         api.get('/agendamentos').then((response) => {
-            setAgendamentosResponse(response.data)
-            console.log(response.data)
-        }).catch((error) => {
-            console.log(error)
+            setAgendamentosResponse(response.data);
+        }).catch((error: ResponseError) => {
+            Alert.alert(error.response.data.message);
         })
     }, [agendamento]);
 
-    function navegacaoParaDetalheAgendamento(id: string, idCliente: string, idLivro: string, nome: string, dataAgendamento: string, titulo: string) {
-        const data: AgendamentosResponse = {
+    function navegacaoParaDetalheAgendamento(id: string) {
+        const data = {
             id: id,
-            idCliente: idCliente,
-            idLivro: idLivro,
-            nome: nome,
-            dataAgendamento: dataAgendamento,
-            titulo: titulo,
         }
-
         navegation.navigate('DetalheAgendamento', data);
     }
+
     return (
         <Container>
             <FlatList
@@ -49,14 +54,13 @@ export const DetalheAgendamento: React.FC = () => {
                 showsVerticalScrollIndicator={false}
                 renderItem={({ item }: { item: AgendamentosResponse }) => (
                     <ContainerLista onPress={() => {
-                        navegacaoParaDetalheAgendamento(
-                            item.id, item.idCliente, item.idLivro, item.nome, item.dataAgendamento, item.titulo
-                        )
+                        navegacaoParaDetalheAgendamento(item.id)
                     }}>
-                        <Text>id cliente: {item.idCliente}</Text>
-                        <Text>id livro: {item.idLivro}</Text>
-                        <Text>Nome cliente: {item.nome}</Text>
-                        <Text>Titulo : {item.titulo}</Text>
+
+                        <Text>Nome cliente: {item.cliente.nome}</Text>
+                        <Text>Endereço: {item.cliente.endereco}</Text>
+                        <Text>Telefon: {item.cliente.telefone}</Text>
+                        <Text>Titulo livro: {item.livro.titulo}</Text>
                         <Text>Data Agendamento: {item.dataAgendamento}</Text>
                     </ContainerLista>
                 )} />
