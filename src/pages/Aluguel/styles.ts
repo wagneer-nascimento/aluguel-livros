@@ -5,12 +5,15 @@ export const Container = styled.View`
   padding: 20px;
 `;
 
-
-export const ContainerLista = styled.TouchableOpacity`
+export const ContainerLista = styled.View`
   width: 100%;
   border-radius: 10px;
   padding: 10px;
   margin-bottom: 10px; 
   background: #412d81;  
 
+`;
+export const Label = styled.Text`
+    font-size: 18px;
+    margin-left: 5px;
 `;

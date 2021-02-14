@@ -7,7 +7,8 @@ import { ResponseError } from '../../interfaces/ResponseError';
 import api from '../../services/api';
 import {
     Container,
-    ContainerLista
+    ContainerLista,
+    Label,
 } from './styles';
 
 const Aluguel: React.FC = () => {
@@ -33,11 +34,15 @@ const Aluguel: React.FC = () => {
                 showsVerticalScrollIndicator={false}
                 renderItem={({ item }: { item: AluguelResponse }) => (
                     <ContainerLista>
-                        <Text>Nome cliente: {item.cliente.nome}</Text>
-                        <Text>Titulo livro: {item.livro.titulo}</Text>
-                        <Text>valor: {item.valor}</Text>
-                        <Text>Data aluguel : {item.dataAluguel}</Text>
-                        <Text>Data devolução : {item.dataDevolucao}</Text>
+                        <Label>ID cliente: {item.cliente.id}</Label>
+                        <Label>Nome: {item.cliente.nome}</Label>
+                        <Label>Endereço: {item.cliente.endereco}</Label>
+                        <Label>Telefone: {item.cliente.telefone}</Label>
+                        <Label>ID livro: {item.cliente.id}</Label>
+                        <Label>Titulo livro: {item.livro.titulo}</Label>
+                        <Label>valor: {item.valor}</Label>
+                        <Label>Data aluguel : {item.dataAluguel}</Label>
+                        <Label>Data devolução : {item.dataDevolucao}</Label>
                     </ContainerLista>
                 )} />
             <Button

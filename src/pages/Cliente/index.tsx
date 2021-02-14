@@ -46,6 +46,7 @@ import {
                             item.id, item.email, item.endereco, item.nome, item.telefone
                         )
                     }}>
+                        <Text>ID: {item.id}</Text>
                         <Text>Nome: {item.nome}</Text>
                         <Text>Email: {item.email}</Text>
                         <Text>Telefone: {item.telefone}</Text>

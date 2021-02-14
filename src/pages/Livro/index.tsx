@@ -46,6 +46,7 @@ export const ListaLivro: React.FC = () => {
                     <ContainerLista onPress={() => {
                         navegacaoParaDetalheLivro(item.id, item.autor, item.descricao, item.ano, item.titulo)
                     }}>
+                        <Text>ID: {item.id}</Text>
                         <Text>titulo: {item.titulo}</Text>
                         <Text>Autor: {item.autor}</Text>
                         <Text>Ano Lançamento: {item.ano}</Text>
