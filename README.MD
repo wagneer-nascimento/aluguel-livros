@@ -29,6 +29,11 @@ Para ver a Api Do APP , clique aqui: [ALUGUEL LIVROS .](https://github.com/wagne
 ---
 ## 📁 Apk do App
     O apk do app está nesse repostorio , como api está hospedada no heroku , voce pode baixar no seu Android e fazer os testes.
+
+<h1 align="center">
+     <img src="images/image05.png" width = 350 height= 470/>
+      
+</h1>
 ---
  ## 📁 Como baixar o projeto
 
@@ -37,12 +42,14 @@ Para ver a Api Do APP , clique aqui: [ALUGUEL LIVROS .](https://github.com/wagne
 $ git clone https://github.com/wagneer-nascimento/aluguel-livros.git
 
 # Entrar no diretório
-$ cd pet-adoption-mobile
+$ cd aluguel-livros
 
 # Instalar as dependencias
 $ yarn install
 
 # inicar o projeto
+$ cd ios  -> para quem está com o emulador IOS
+$ pod install -> para quem está com o emulador IOS
 $ yarn ios para quem está com o emulador IOS
 $ yarn run android para quem está com emulador Android
 
